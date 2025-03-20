@@ -1,4 +1,4 @@
-import { OtpCodeComponent } from '../components/OtpCodeComponent'
+import { OtpCodeComponent } from '../../components/auth/OtpCodeComponent'
 
 export const OtpCode = () => {
   return (
