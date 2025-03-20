@@ -10,3 +10,7 @@ body {
 input,label,.forgot-password,.div_signup_text {
     font-family: 'Geist',sans-serif;
 }
+
+.inputs_div input:not(:last-child) {
+    border-right: 1px;
+}
