@@ -22,6 +22,8 @@ export const RegisterComponent = () => {
         const response =  await dispatch(registerUser({name,email,password})).unwrap()
         toast.success('Succesfully Created Account',{style:{background:'#020202',color:'#fff'}})
         localStorage.setItem('name',name)
+        localStorage.setItem('email',email)
+        localStorage.setItem('routeId',response.user.routeId)
 
         navigate(`/user/${response.user.routeId}`)  
 
