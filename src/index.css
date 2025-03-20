@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+body {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    color: white;
+    background-color: #09090B;
+}
+
+input,label,.forgot-password,.div_signup_text {
+    font-family: 'Geist',sans-serif;
+}
