@@ -36,7 +36,7 @@ export const ChangePasswordComponent = () => {
 
 
   return (
-    <div className="w-[390px] h-[280px] bg-none border-[1.5px] rounded-xl pl-6 border-neutral-800 ">
+    <div className="w-[390px] h-[280px] bg-none border-[1.5px] rounded-xl pl-6 border-neutral-800 max-sm:scale-75">
       <h3 className="text-white text-2xl font-semibold mt-7">Change Password</h3>
       <p className="mt-1.5 text-neutral-400 text-sm">Enter new password</p>
       <form onSubmit={handleSubmit}>
