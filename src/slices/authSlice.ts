@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL_LOCAL = "https://coder-dev-server.onrender.com/";
+const API_URL_LOCAL = "https://coder-dev-server.onrender.com/api/auth";
 
 interface User {
   id: string;
