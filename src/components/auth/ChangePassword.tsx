@@ -3,7 +3,7 @@ import { resetPassword } from "../../slices/authSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../../store/store"
 import toast from "react-hot-toast"
-import { useNavigate } from "react-router"
+import { useNavigate } from "react-router-dom"
 
 export const ChangePasswordComponent = () => {
 

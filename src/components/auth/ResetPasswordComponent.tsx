@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router-dom"
 import { AppDispatch, RootState } from "../../store/store"
 import { sendOtp } from "../../slices/authSlice"
 import toast from "react-hot-toast"

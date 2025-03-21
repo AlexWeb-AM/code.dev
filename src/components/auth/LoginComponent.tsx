@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router-dom"
 import { RootState,AppDispatch } from "../../store/store"
 import toast from "react-hot-toast"
 import { loginUser } from "../../slices/authSlice"

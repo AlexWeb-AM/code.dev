@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { checkOtp } from "../../slices/authSlice";
 import toast from "react-hot-toast";
 
