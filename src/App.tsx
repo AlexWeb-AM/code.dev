@@ -9,8 +9,7 @@ import { Toaster } from "react-hot-toast"
 export const App = () => {
   return (
     <Router>
-      <Toaster position="top-center"
-  reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
