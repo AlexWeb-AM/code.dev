@@ -65,7 +65,7 @@ export const RegisterComponent = () => {
           </div>
           
           <div className="">
-            <button type="submit" disabled={isLoading} className="bg-neutral-50 text-sm cursor-pointer text-black w-[340px] h-10 rounded-md transition-opacity hover:opacity-80">Register</button>
+            <button type="submit" disabled={isLoading} className="bg-neutral-50 text-sm cursor-pointer text-black w-[340px] h-10 rounded-md transition-opacity hover:opacity-80 disabled:bg-neutral-500 disabled:cursor-auto">Register</button>
           </div>
           
           <div className="mt-[-5px] w-[340px] text-center div_signup_text text-sm">

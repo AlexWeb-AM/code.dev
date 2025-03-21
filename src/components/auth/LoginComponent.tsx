@@ -52,7 +52,7 @@ export const LoginComponent = () => {
             <input value={password} onChange={(e) => setPassword(e.target.value)} required  type="password" placeholder="••••••••••••" id="password" className="border-[1px] border-neutral-500 w-[340px] px-2 py-2 rounded-md focus-visible:outline-1 focus-visible:border-neutral-100  bg-transparent placeholder:text-sm "  />
           </div>
           <div className="">
-            <button type="submit" disabled={isLoading} className="bg-neutral-50 text-sm cursor-pointer text-black w-[340px] h-10 rounded-md transition-opacity hover:opacity-80">Login</button>
+            <button type="submit" disabled={isLoading} className="bg-neutral-50 text-sm cursor-pointer text-black w-[340px] h-10 rounded-md transition-opacity hover:opacity-80 disabled:bg-neutral-500 disabled:cursor-auto">Login</button>
           </div>
           <div className="mt-[-5px] w-[340px] text-center div_signup_text text-sm">
             Don't have an account?<Link to='/register' className="underline underline-offset-2 ml-1">Register</Link>
