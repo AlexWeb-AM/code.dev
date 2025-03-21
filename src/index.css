@@ -5,6 +5,7 @@ body {
     font-weight: 400;
     color: white;
     background-color: #09090B;
+    overflow: hidden;
 }
 
 input,label,.forgot-password,.div_signup_text {
