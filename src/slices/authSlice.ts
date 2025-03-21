@@ -8,6 +8,7 @@ interface User {
   name: string;
   email: string;
   routeId: string;
+  verifyOtp:string;
 }
 
 interface UserState {
@@ -41,11 +42,7 @@ export const loginUser = createAsyncThunk<
   }
 });
 
-export const registerUser = createAsyncThunk<
-  { user: User },
-  { name: string; email: string; password: string },
-  { rejectValue: string }
->("auth/register", async (userData, { rejectWithValue }) => {
+export const registerUser = createAsyncThunk<{ user: User },{ name: string; email: string; password: string },{ rejectValue: string }>("auth/register", async (userData, { rejectWithValue }) => {
   try {
     const response = await axios.post(`${API_URL_LOCAL}/register`, userData);
     return response.data;
@@ -59,6 +56,37 @@ export const registerUser = createAsyncThunk<
     return rejectWithValue("Unexpected error occurred");
   }
 });
+
+export const sendOtp = createAsyncThunk<{ user: User },{ email: string; },{ rejectValue: string }>("auth/sendOtp", async (userData, { rejectWithValue }) => {
+  try {
+    const response = await axios.post(`${API_URL_LOCAL}/send-otp`, userData);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error Send Otp:", error);
+
+    if (axios.isAxiosError(error) && error.response) {
+      return rejectWithValue(error.response.data?.message || "Error SignUp");
+    }
+
+    return rejectWithValue("Unexpected error occurred");
+  }
+});
+
+export const checkOtp = createAsyncThunk<{ user: User },{ email: string;otp:string },{ rejectValue: string }>("auth/checkOtp", async (userData, { rejectWithValue }) => {
+  try {
+    const response = await axios.post(`${API_URL_LOCAL}/check-otp`, userData);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error Send Otp:", error);
+
+    if (axios.isAxiosError(error) && error.response) {
+      return rejectWithValue(error.response.data?.message || "Error SignUp");
+    }
+
+    return rejectWithValue("Unexpected error occurred");
+  }
+});
+
 
 const authSlice = createSlice({
   name: "auth",
@@ -93,7 +121,19 @@ const authSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
-      });
+      })
+      .addCase(sendOtp.pending,(state) => {
+        state.isLoading = true
+        state.error = null
+      }) 
+      .addCase(sendOtp.fulfilled,(state) => {
+        state.isLoading = false;
+      })
+      .addCase(sendOtp.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      })
+
   },
 });
 
