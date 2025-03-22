@@ -1,24 +1,29 @@
 import React, { useEffect } from "react";
 import Editor, { useMonaco } from "@monaco-editor/react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
+import { setCode } from "../../../slices/codeSlice";
+
 
 export const CodeEditor: React.FC = () => {
   const monaco = useMonaco();
-
+  const dispatch = useDispatch<AppDispatch>();
+  const code = useSelector((state: RootState) => state.code.code);
   useEffect(() => {
     if (monaco) {
       monaco.editor.defineTheme("myCustomTheme", {
-        base: "vs-dark", // Наследуем базовую темную тему
+        base: "vs-dark",
         inherit: true,
         rules: [
-          { token: "comment", foreground: "6A9955", fontStyle: "italic" }, // Зеленые комментарии
-          { token: "keyword", foreground: "569CD6", fontStyle: "bold" }, // Синие ключевые слова
-          { token: "string", foreground: "CE9178" }, // Оранжевые строки
-          { token: "number", foreground: "B5CEA8" }, // Светло-зеленые числа
-          { token: "variable", foreground: "9CDCFE" }, // Голубые переменные
-          { token: "type", foreground: "4EC9B0" }, // Бирюзовые классы и интерфейсы
-          { token: "function", foreground: "DCDCAA" }, // Желтые функции
-          { token: "boolean", foreground: "569CD6" }, // Синий `true/false`
-          { token: "operator", foreground: "C586C0" }, // Розовые операторы
+          { token: "comment", foreground: "6A9955", fontStyle: "italic" }, 
+          { token: "keyword", foreground: "569CD6", fontStyle: "bold" }, 
+          { token: "string", foreground: "CE9178" }, 
+          { token: "number", foreground: "B5CEA8" }, 
+          { token: "variable", foreground: "9CDCFE" },
+          { token: "type", foreground: "4EC9B0" }, 
+          { token: "function", foreground: "DCDCAA" },
+          { token: "boolean", foreground: "569CD6" }, 
+          { token: "operator", foreground: "C586C0" },        
         ],
         colors: {
           "editor.background": "#09090B", 
@@ -44,8 +49,9 @@ export const CodeEditor: React.FC = () => {
     <Editor
       height="100vh"
       defaultLanguage="javascript"
-      defaultValue="// Write Code ......"
+      value={code}
       theme="myCustomTheme"
+      onChange={(value:string) => dispatch(setCode(value || ""))}
       options={{
         scrollbar: { vertical:'hidden', horizontal: "hidden" }, 
         overviewRulerLanes:0,

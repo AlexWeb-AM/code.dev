@@ -1,13 +1,28 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { AppDispatch, RootState } from "../../store/store";
+import { setLanguage } from "../../slices/codeSlice";
 
 export const Header = () => {
   const [menu, setMenu] = useState<boolean>(false);
-const [lang,setLang] = useState<string>('JavaScript')
-  const name = localStorage.getItem('name')?.split(' ') || [];
+  const dispatch = useDispatch<AppDispatch>();
+  
+  const [name, setName] = useState<string[]>([]);
+  useEffect(() => {
+    const storedName = localStorage.getItem('name')?.split(' ') || [];
+    setName(storedName);
+  }, []);
 
+  const languagesArray = ["JavaScript", "TypeScript", "Python", "Java", "C++"];
+  const language = useSelector((state: RootState) => state.code.language);
 
-  const languagesArray = ["JavaScript", "TypeScript", "Python", "Java", "C++"]
+  const handleLanguageChange = async (newLang: string) => {
+    if (newLang !== language) {
+      await dispatch(setLanguage(newLang)); 
+    }
+    setMenu(false);  
+  };
 
   return (
     <header className="w-full h-16 bg-transparent border-b border-neutral-500 backdrop-blur-2xl">
@@ -23,15 +38,13 @@ const [lang,setLang] = useState<string>('JavaScript')
               onClick={() => setMenu(!menu)}
               className="appearance-none w-[150px] px-3 h-[40px] focus-visible:outline-none rounded-md border border-neutral-700 bg-[url('/arrow.svg')] bg-no-repeat bg-right flex items-center text-neutral-400 cursor-pointer"
             >
-              {lang}
+              {language} 
             </button>
             {menu && (
               <div className='div_langs absolute w-[150px] h-auto mt-1 border border-neutral-700 rounded-md bg-[#09090B] flex flex-col items-center pt-1 pb-1'>
-                {languagesArray.map((language) => (
-                  <button key={language} className='cursor-pointer w-[140px] h-[40px] hover:bg-neutral-700 rounded-md flex items-center pl-2' onClick={() => {setLang(language)
-                    setMenu(false)
-                  }} >
-                    {language}
+                {languagesArray.map((lang) => (
+                  <button key={lang} className='cursor-pointer w-[140px] h-[40px] hover:bg-neutral-700 rounded-md flex items-center pl-2' onClick={() => handleLanguageChange(lang)} >
+                    {lang}
                   </button>
                 ))}
               </div>
