@@ -9,7 +9,7 @@ body {
     overflow: hidden;
 }
 
-input,label,.forgot-password,.div_signup_text {
+input,label,.forgot-password,.div_signup_text,.div_lang,.div_langs {
     font-family: 'Geist',sans-serif;
 }
 
