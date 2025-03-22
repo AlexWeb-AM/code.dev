@@ -5,6 +5,7 @@ import { ResetPassword } from "./pages/auth/ResetPassword"
 import { OtpCode } from "./pages/auth/OtpCode"
 import { ChangePassword } from "./pages/auth/ChangePassword"
 import { Toaster } from "react-hot-toast"
+import { Home } from "./pages/ui/Home"
 
 export const App = () => {
   return (
@@ -16,6 +17,7 @@ export const App = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/otp-code-verify" element={<OtpCode />} />
         <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/user/:id" element={<Home />} />
       </Routes>
     </Router>
   )
