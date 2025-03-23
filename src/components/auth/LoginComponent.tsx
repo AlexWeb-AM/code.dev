@@ -23,7 +23,9 @@ export const LoginComponent = () => {
       toast.success("Login successful", { style: { background: '#020202', color: '#fff' } });
       localStorage.setItem("email", email);
       localStorage.setItem("routeId", response.user.routeId);
+      localStorage.setItem('name',response.user.name)
       navigate(`/user/${response.user.routeId}`);
+      
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message, { style: { background: '#020202', color: '#fff' } });

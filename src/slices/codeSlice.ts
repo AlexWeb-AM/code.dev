@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// const API_URL_LOCAL = "http://localhost:5000/api/code";
-const API_URL_LOCAL = 'https://coder-dev-server.onrender.com/api/code'
+const API_URL_LOCAL = "http://localhost:5000/api/code";
+// const API_URL_LOCAL = 'https://coder-dev-server.onrender.com/api/code'
 
 interface CodeState {
   code: string;

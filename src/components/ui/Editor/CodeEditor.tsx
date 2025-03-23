@@ -9,8 +9,16 @@
     const monaco = useMonaco();
     const dispatch = useDispatch<AppDispatch>();
     const code = useSelector((state: RootState) => state.code.code);
+    const language = useSelector((state:RootState) => state.code.language)
+
+    console.log(language)
+
     useEffect(() => {
       if (monaco) {
+        monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+          noImplicitAny: false, 
+          strict: false,
+        });
         monaco.editor.defineTheme("myCustomTheme", {
           base: "vs-dark",
           inherit: true,
@@ -48,7 +56,7 @@
     return (
       <Editor
         height="100vh"
-        defaultLanguage="javascript"
+        language={language.toLowerCase()}
         value={code}
         theme="myCustomTheme"
         onChange={(value:string) => dispatch(setCode(value || ""))}

@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../store/store";
 import { setLanguage } from "../../slices/codeSlice";
 import { LogOut, Settings } from "lucide-react";
+import { logout } from "../../slices/authSlice";
 
 
 export const Header = () => {
   const [menu, setMenu] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   
+  const navigate = useNavigate()
   const [name, setName] = useState<string[]>([]);
   const [profileMenu,setProfileMenu] = useState(false)
-  console.log(profileMenu)
   useEffect(() => {
     const storedName = localStorage.getItem('name')?.split(' ') || [];
     setName(storedName);
@@ -27,6 +28,17 @@ export const Header = () => {
     }
     setMenu(false);  
   };
+
+  const handleLogout = (e:React.FormEvent) => {
+    e.preventDefault()
+
+    dispatch(logout())
+
+    localStorage.clear()
+
+    navigate('/')
+
+  }
 
   return (
     <header className="w-full h-16 bg-transparent border-b border-neutral-500 backdrop-blur-2xl">
@@ -65,9 +77,9 @@ export const Header = () => {
             {name[0]?.[0] || ''}
             {name[1]?.[0] || ''}
           </button>
-          {profileMenu && (<div className="flex flex-col gap-1 justify-center items-center absolute top-14 right-12 w-[130px] h-[95px] bg-[#09090B] rounded-md border-neutral-700 border">
-            <button className="text-md cursor-pointer gap-2 w-[120px] h-[40px] rounded-md flex items-center pl-2 hover:bg-neutral-700 "><Settings />Settings</button>
-            <button className="text-md cursor-pointer gap-2 w-[120px] h-[40px] rounded-md flex items-center pl-2  hover:bg-neutral-700"><LogOut />Logout</button>
+          {profileMenu && (<div className="flex flex-col gap-1 justify-center items-center absolute top-14 right-12 w-[140px] h-[95px] bg-[#09090B] rounded-md border-neutral-700 border">
+            <button className="text-md cursor-pointer transition-all gap-2 w-[130px] h-[40px] rounded-md flex items-center pl-2 hover:bg-neutral-700 "><Settings />Settings</button>
+            <button onClick={handleLogout} className="text-md cursor-pointer transition-all gap-2 w-[130px] h-[40px] rounded-md flex items-center pl-2  hover:bg-neutral-700"><LogOut />Logout</button>
           </div>)}
         </div>
       </div>
