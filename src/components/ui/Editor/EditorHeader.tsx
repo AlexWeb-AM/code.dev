@@ -55,7 +55,7 @@ export const EditorHeader = () => {
     return (
         <header className="w-full h-14 bg-transparent border-b border-neutral-500 flex items-center justify-between">
             <div className="ml-5">
-                <h3 className="text-neutral-400 cursor-default">script.js</h3>
+                <h3 className="text-neutral-400 cursor-default">script{language === "JavaScript" ? '.js':'.ts'}</h3>
             </div>
             <div className="mr-2 flex gap-2">
                 <button onClick={handleRefresh} className="cursor-pointer transition-all hover:bg-neutral-800 w-[40px] h-[40px] rounded-md border-neutral-700 text-neutral-400 border flex justify-center items-center">
