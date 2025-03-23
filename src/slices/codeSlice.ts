@@ -1,28 +1,40 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL_LOCAL = "http://localhost:5000/api/code";
+// const API_URL_LOCAL = "http://localhost:5000/api/code";
+const API_URL_LOCAL = 'https://coder-dev-server.onrender.com/api/code'
 
 interface CodeState {
-    code: string;
-    language: string;
-    isLoading: boolean;
-    error: string | null;
+  code: string;
+  language: string;
+  isLoading: boolean;
+  error: string | null;
+  output: string | null;  
 }
 
 const initialState: CodeState = {
-    code: '// Write Code',
-    language: 'JavaScript',
-    isLoading: false,
-    error: null
-}
+  code: '// Write Code',
+  language: 'JavaScript',
+  isLoading: false,
+  error: null,
+  output: null
+};
 
-export const receiveCode = createAsyncThunk<CodeState, { code: string; language: string }, { rejectValue: string }>(
+export const receiveCode = createAsyncThunk<
+    { code: string; language: string; output: string }, 
+    { code: string; language: string }, 
+    { rejectValue: string }
+>(
     "code/receiveCode", 
     async (userData, { rejectWithValue }) => {
         try {
             const response = await axios.post(`${API_URL_LOCAL}/receive-code`, userData);
-            return response.data;
+
+            if (!response.data.success) {
+                return rejectWithValue(response.data.message || "Execution failed");
+            }
+
+            return { code: userData.code, language: userData.language, output: response.data.result };
         } catch (error: unknown) {
             console.error("Error Receive Code:", error);
 
@@ -34,6 +46,7 @@ export const receiveCode = createAsyncThunk<CodeState, { code: string; language:
         }
     }
 );
+
 const codeSlice = createSlice({
     name: "code",
     initialState,
@@ -55,14 +68,14 @@ const codeSlice = createSlice({
           state.isLoading = false;
           state.code = action.payload.code;
           state.language = action.payload.language;
+          state.output = action.payload.output;
         })
         .addCase(receiveCode.rejected, (state, action) => {
           state.isLoading = false;
           state.error = action.payload as string;
         });
     }
-  });
-  
+});
 
-export const { setCode,setLanguage } = codeSlice.actions;
+export const { setCode, setLanguage } = codeSlice.actions;
 export default codeSlice.reducer;
