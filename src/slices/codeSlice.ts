@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL_LOCAL = "https://coder-dev-server.onrender.com/api/code";
+const apiCode = process.env.REACT_APP_BACKEND_API_URL_CODE
+
 
 interface CodeState {
   code: string;
@@ -27,7 +28,7 @@ export const receiveCode = createAsyncThunk<
     "code/receiveCode", 
     async (userData, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${API_URL_LOCAL}/receive-code`, userData);
+            const response = await axios.post(`${apiCode}/receive-code`, userData);
 
             if (!response.data.success) {
                 return rejectWithValue(response.data.message || "Execution failed");

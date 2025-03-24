@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL_LOCAL = "https://coder-dev-server.onrender.com/api/auth";
+const apiAuth = process.env.REACT_APP_BACKEND_API_URL_AUTH;
+
 
 interface User {
   id: string;
@@ -29,7 +30,7 @@ export const loginUser = createAsyncThunk<
   { rejectValue: string }
 >("auth/login", async (userData, { rejectWithValue }) => {
   try {
-    const response = await axios.post(`${API_URL_LOCAL}/login`, userData);
+    const response = await axios.post(`${apiAuth}/login`, userData);
     return response.data;
   } catch (error: unknown) {
     console.error("Error Login:", error);
@@ -44,7 +45,7 @@ export const loginUser = createAsyncThunk<
 
 export const registerUser = createAsyncThunk<{ user: User },{ name: string; email: string; password: string },{ rejectValue: string }>("auth/register", async (userData, { rejectWithValue }) => {
   try {
-    const response = await axios.post(`${API_URL_LOCAL}/register`, userData);
+    const response = await axios.post(`${apiAuth}/register`, userData);
     return response.data;
   } catch (error: unknown) {
     console.error("Error SignUp:", error);
@@ -59,7 +60,7 @@ export const registerUser = createAsyncThunk<{ user: User },{ name: string; emai
 
 export const sendOtp = createAsyncThunk<{ user: User },{ email: string; },{ rejectValue: string }>("auth/sendOtp", async (userData, { rejectWithValue }) => {
   try {
-    const response = await axios.post(`${API_URL_LOCAL}/send-otp`, userData);
+    const response = await axios.post(`${apiAuth}/send-otp`, userData);
     return response.data;
   } catch (error: unknown) {
     console.error("Error Send Otp:", error);
@@ -74,7 +75,7 @@ export const sendOtp = createAsyncThunk<{ user: User },{ email: string; },{ reje
 
 export const checkOtp = createAsyncThunk<{ user: User },{ email: string;otp:string },{ rejectValue: string }>("auth/checkOtp", async (userData, { rejectWithValue }) => {
   try {
-    const response = await axios.post(`${API_URL_LOCAL}/check-otp`, userData);
+    const response = await axios.post(`${apiAuth}/check-otp`, userData);
     return response.data;
   } catch (error: unknown) {
     console.error("Error Check Otp:", error);
@@ -89,7 +90,7 @@ export const checkOtp = createAsyncThunk<{ user: User },{ email: string;otp:stri
 
 export const resetPassword = createAsyncThunk<{ user: User },{ email: string;newPassword:string },{ rejectValue: string }>("auth/resetPassword", async (userData, { rejectWithValue }) => {
   try {
-    const response = await axios.post(`${API_URL_LOCAL}/reset-password`, userData);
+    const response = await axios.post(`${apiAuth}/reset-password`, userData);
     return response.data;
   } catch (error: unknown) {
     console.error("Error restarted password:", error);
