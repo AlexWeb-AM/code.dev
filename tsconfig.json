@@ -5,9 +5,7 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "baseUrl": ".",
-    "types": ["node"],
-    "paths": {
+    "baseUrl": ".",    "paths": {
       "@/*": ["./src/*"]
     },
     "typeRoots": [
